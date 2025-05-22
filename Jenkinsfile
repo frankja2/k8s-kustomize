@@ -9,6 +9,7 @@ pipeline {
         withCredentials([file(credentialsId: env.KUBECONFIG_CRED_ID, variable: 'KUBECONFIG')]) {
           sh '''
             export KUBECONFIG=$KUBECONFIG
+            kubectl apply --dry-run=client -k dev/
             kubectl apply -k dev
             kubectl apply -k prod
           '''
