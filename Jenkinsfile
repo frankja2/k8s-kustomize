@@ -5,14 +5,15 @@ pipeline {
     KUBECONFIG_CRED_ID = 'k3s-kubeconfig'
   }
 
+  stages {
     stage('Validate manifests (dev)') {
       steps {
         withCredentials([file(credentialsId: env.KUBECONFIG_CRED_ID, variable: 'KUBECONFIG')]) {
-    sh '''
-      export KUBECONFIG=$KUBECONFIG
-      echo "🔍 Validating dev/ with kubeconform..."
-      kubeconform -strict -summary -kubernetes-version 1.27 <(kubectl kustomize dev/)
-    '''
+          sh '''
+            export KUBECONFIG=$KUBECONFIG
+            echo "🔍 Validating dev/ with kubeconform..."
+            kubeconform -strict -summary -kubernetes-version 1.27 <(kubectl kustomize dev/)
+          '''
         }
       }
     }
