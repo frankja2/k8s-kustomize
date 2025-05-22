@@ -10,6 +10,7 @@ pipeline {
           sh '''
             export KUBECONFIG=$KUBECONFIG
             kubectl apply -k dev
+            kubectl apply -k prod
           '''
         }
       }
