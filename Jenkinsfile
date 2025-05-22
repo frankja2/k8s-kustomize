@@ -13,6 +13,7 @@ pipeline {
             export KUBECONFIG=$KUBECONFIG
             echo "🔍 Dry run: dev/"
             kubectl apply --dry-run=client -k dev/
+            kubeconform -h
           '''
         }
       }
