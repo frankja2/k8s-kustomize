@@ -6,6 +6,15 @@ pipeline {
   }
 
   stages {
+  stage('Validate manifests (dev)') {
+  steps {
+    sh '''
+      echo "🔍 Validating dev/ with kubeconform..."
+      kubeconform -strict -summary -kubernetes-version 1.27 <(kubectl kustomize dev/)
+    '''
+  }
+}
+
     stage('Dry Run Kustomize Dev') {
       steps {
         withCredentials([file(credentialsId: env.KUBECONFIG_CRED_ID, variable: 'KUBECONFIG')]) {
