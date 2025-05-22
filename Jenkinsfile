@@ -12,8 +12,7 @@ pipeline {
           sh '''
             export KUBECONFIG=$KUBECONFIG
             echo "🔍 Validating dev/ with kubeconform..."
-            kubeconform -strict -summary -kubernetes-version 1.27 <(kubectl kustomize dev/)
-          '''
+        kubectl kustomize dev/ | kubeconform -strict -summary -kubernetes-version 1.27          '''
         }
       }
     }
